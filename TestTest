@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script>
+
+        $(
+            function () {
+                attachEvents();
+                
+            }
+
+        )
+
+        function attachEvents() {
+            $("#btCreate").click(createAccount);
+            $("#txtPseudo").keyup(Check);
+            $("#alert").hide();
+            $("#alert2").hide();
+        }
+
+        function resultCheck(data) {
+            if (data.documentElement.innerHTML == 1) {
+                $("#alert").show();
+                $("#alert2").hide();
+            }
+            else {
+                $("#alert").hide();
+                $("#alert2").show();
+            }
+        }
+
+        function createAccount() {
+            var pseudo = $("#txtPseudo").val();
+            $.ajax(
+                {
+                    url: "http://localhost:1789/AccountManagement.asmx/Register?pseudo=" + pseudo,
+
+                }
+
+            );
+        }
+
+        function Check() {
+            var pseudo = $("#txtPseudo").val();
+            $.ajax(
+                {
+                    url: "http://localhost:1789/AccountManagement.asmx/CheckAccount?pseudo=" + pseudo ,
+                    success: resultCheck
+
+                }
+
+            );
+        }
+
+    </script>
+</head>
+<body>
+    <input type="text" name="txtPseudo" value="Pseudo" id="txtPseudo" />
+    <input type="button" name="btCreate" id="btCreate" value="Create" />
+
+    <div class="alert alert-danger" role="alert" id="alert">
+        "Pseudo déjà utilisé, veuillez en sélectionner un nouveau"
+    </div>
+    <div class="alert alert-success" role="alert" id="alert2">
+        "Pseudo valide"
+    </div>
+</body>
+</html>
