@@ -7,22 +7,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="Scripts/jquery-3.3.1.js"></script>
     <script>
-
         $(
             function () {
                 attachEvents();
-                
             }
-
         )
-
         function attachEvents() {
             $("#btCreate").click(createAccount);
             $("#txtPseudo").keyup(Check);
             $("#alert").hide();
             $("#alert2").hide();
         }
-
         function resultCheck(data) {
             if (data.documentElement.innerHTML == 1) {
                 $("#alert").show();
@@ -33,30 +28,23 @@
                 $("#alert2").show();
             }
         }
-
         function createAccount() {
             var pseudo = $("#txtPseudo").val();
             $.ajax(
                 {
                     url: "http://localhost:1789/AccountManagement.asmx/Register?pseudo=" + pseudo,
-
                 }
-
             );
         }
-
         function Check() {
             var pseudo = $("#txtPseudo").val();
             $.ajax(
                 {
                     url: "http://localhost:1789/AccountManagement.asmx/CheckAccount?pseudo=" + pseudo ,
                     success: resultCheck
-
                 }
-
             );
         }
-
     </script>
 </head>
 <body>
